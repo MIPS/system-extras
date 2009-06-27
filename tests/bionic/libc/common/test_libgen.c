@@ -75,8 +75,7 @@ test_basename_r(char*  _input, const char*  _expected_content, int  _expected, c
             fail += 1;
             return;
         }
-    }
-    else if ( memcmp( _buff, _expected_content, ret ) ) {
+    } else if (_buff && memcmp(_buff, _expected_content, ret)) {
         fprintf(stderr,
                 "KO: basename_r(\"%s\", <buff>, %d) returned \"%s\", expected \"%s\"\n",
                 _input, _bufflen, _buff, _expected_content );
