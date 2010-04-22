@@ -8,6 +8,7 @@ private:
 public:
     virtual int getValue();
     Foo();
+    virtual ~Foo() {}
 };
 
 extern Foo  theFoo;

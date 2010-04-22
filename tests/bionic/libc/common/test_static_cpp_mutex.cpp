@@ -37,7 +37,10 @@ private:
 public:
     virtual int   getValue();
     Foo();
+    virtual  ~Foo();
 };
+
+Foo::~Foo() {}
 
 Foo::Foo()
 {
