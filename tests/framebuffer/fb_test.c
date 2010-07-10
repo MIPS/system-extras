@@ -57,6 +57,7 @@ static int get_framebuffer(GGLSurface *fb)
 {
     int fd;
     void *bits;
+    long pagesize = sysconf(_SC_PAGESIZE);
 
     fd = open("/dev/graphics/fb0", O_RDWR);
     if (fd < 0) {
@@ -79,11 +80,17 @@ static int get_framebuffer(GGLSurface *fb)
 
     dumpinfo(&fi, &vi);
 
-    bits = mmap(0, fi.smem_len, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
+    if (fi.smem_start & (pagesize-1)) {
+	bits = mmap(0, fi.smem_len+pagesize, PROT_READ|PROT_WRITE, MAP_SHARED, fd, 0);
+    } else {
+	bits = mmap(0, fi.smem_len, PROT_READ|PROT_WRITE, MAP_SHARED, fd, 0);
+    }
     if(bits == MAP_FAILED) {
         perror("failed to mmap framebuffer");
         return -1;
     }
+    if (fi.smem_start & (pagesize-1))
+	    bits = (char *)bits + (fi.smem_start & (pagesize-1));
 
     fb->version = sizeof(*fb);
     fb->width = vi.xres;
