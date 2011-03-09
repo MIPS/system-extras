@@ -146,12 +146,14 @@ $(call device-test, $(sources))
 include $(CLEAR_VARS)
 LOCAL_SRC_FILES := bionic/lib_relocs.c
 LOCAL_MODULE    := libtest_relocs
+LOCAL_MODULE_TAGS := tests
 LOCAL_PRELINK_MODULE := false
 include $(BUILD_SHARED_LIBRARY)
 
 include $(CLEAR_VARS)
 LOCAL_SRC_FILES := bionic/test_relocs.c
 LOCAL_MODULE    := test_relocs
+LOCAL_MODULE_TAGS := tests
 LOCAL_SHARED_LIBRARIES := libtest_relocs
 include $(BUILD_EXECUTABLE)
 
@@ -163,12 +165,14 @@ include $(BUILD_EXECUTABLE)
 include $(CLEAR_VARS)
 LOCAL_SRC_FILES := bionic/lib_static_init.cpp
 LOCAL_MODULE    := libtest_static_init
+LOCAL_MODULE_TAGS := tests
 LOCAL_PRELINK_MODULE := false
 include $(BUILD_SHARED_LIBRARY)
 
 include $(CLEAR_VARS)
 LOCAL_SRC_FILES := bionic/test_static_init.cpp
 LOCAL_MODULE    := test_static_init
+LOCAL_MODULE_TAGS := tests
 LOCAL_SHARED_LIBRARIES := libtest_static_init
 include $(BUILD_EXECUTABLE)
 
@@ -177,12 +181,14 @@ include $(BUILD_EXECUTABLE)
 include $(CLEAR_VARS)
 LOCAL_SRC_FILES := bionic/libdlclosetest1.cpp
 LOCAL_MODULE := libdlclosetest1
+LOCAL_MODULE_TAGS := tests
 LOCAL_PRELINK_MODULE := false
 include $(BUILD_SHARED_LIBRARY)
 
 include $(CLEAR_VARS)
 LOCAL_SRC_FILES := bionic/test_dlclose_destruction.c
 LOCAL_MODULE := test_dlclose_destruction
+LOCAL_MODULE_TAGS := tests
 LOCAL_LDFLAGS := -ldl
 #LOCAL_SHARED_LIBRARIES := libdlclosetest1
 include $(BUILD_EXECUTABLE)
@@ -191,12 +197,14 @@ include $(BUILD_EXECUTABLE)
 include $(CLEAR_VARS)
 LOCAL_SRC_FILES := common/test_clone.c
 LOCAL_MODULE := test_clone
+LOCAL_MODULE_TAGS := tests
 include $(BUILD_EXECUTABLE)
 
 ifeq ($(HOST_OS),linux)
 include $(CLEAR_VARS)
 LOCAL_SRC_FILES := common/test_clone.c
 LOCAL_MODULE := test_clone
+LOCAL_MODULE_TAGS := tests
 include $(BUILD_HOST_EXECUTABLE)
 endif
 
