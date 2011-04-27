@@ -185,6 +185,7 @@ int madvise_test(int argc, char** argv)
 int crash_test(int argc, char** argv)
 {
     printf("about to crash...\n");
+#if defined(__arm__)
     asm volatile(
         "mov r0,  #0 \n"
         "mov r1,  #1 \n"
@@ -192,7 +193,17 @@ int crash_test(int argc, char** argv)
         "mov r3,  #3 \n"
         "ldr r12, [r0] \n"
     );
-
+#elif defined(__mips__)
+    asm volatile(
+        "li $4,  0 \n"
+        "li $5,   1 \n"
+        "li $6,  2 \n"
+        "li $7,  3 \n"
+        "lw $8, 0xded($0) \n"
+    );
+#else
+#warning "No crash_test support for this architecture"
+#endif
     return 0;
 }
 
